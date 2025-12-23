@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Leaflet Map Example</title>
+
+    <!-- Include Leaflet CSS file -->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""
+    />
+
+    <style>
+      /* Map container styling */
+      #map {
+        height: 400px;
+        width: 400px;
+        border-radius: 8px;
+      }
+
+      body {
+        margin: 20px;
+        font-family: Arial, sans-serif;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>My Leaflet Map</h1>
+
+    <!-- Map container -->
+    <div id="map"></div>
+
+    <!-- Include Leaflet JavaScript file -->
+    <script
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      crossorigin=""
+    ></script>
+
+    <script>
+      // Initialize the map
+      var map = L.map("map").setView([51.505, -0.09], 13); // [latitude, longitude], zoom level
+
+      // Add a tile layer (OpenStreetMap)
+      L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        attribution:
+          '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+      }).addTo(map);
+
+      // Add a marker
+      var marker = L.marker([51.5, -0.09])
+        .addTo(map)
+        .bindPopup(
+          "Hello! This is a marker.<br>Click anywhere on the map to add more markers."
+        )
+        .openPopup();
+
+      // Add a circle
+      var circle = L.circle([51.508, -0.11], {
+        color: "red",
+        fillColor: "#f03",
+        fillOpacity: 0.5,
+        radius: 500,
+      })
+        .addTo(map)
+        .bindPopup("I am a circle.");
+
+      // Add a polygon
+      var polygon = L.polygon([
+        [51.509, -0.08],
+        [51.503, -0.06],
+        [51.51, -0.047],
+      ])
+        .addTo(map)
+        .bindPopup("I am a polygon.");
+
+      // Add click event to create markers
+      function onMapClick(e) {
+        var popupContent =
+          "You clicked the map at:<br>" +
+          "Latitude: " +
+          e.latlng.lat.toFixed(4) +
+          "<br>" +
+          "Longitude: " +
+          e.latlng.lng.toFixed(4);
+
+        L.popup().setLatLng(e.latlng).setContent(popupContent).openOn(map);
+      }
+
+      map.on("click", onMapClick);
+    </script>
+  </body>
+</html>
+
+<!-- // Different map styles
+var osm = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '© OpenStreetMap'
+});
+
+var satellite = L.tileLayer('https://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
+    maxZoom: 20,
+    subdomains: ['mt0','mt1','mt2','mt3'],
+    attribution: '© Google'
+});
+
+// Different base maps
+var baseMaps = {
+    "OpenStreetMap": osm,
+    "Satellite": satellite
+};
+
+// Add layer control
+L.control.layers(baseMaps).addTo(map); -->
