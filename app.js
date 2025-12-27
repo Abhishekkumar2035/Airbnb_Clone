@@ -19,7 +19,8 @@ const listingRouter = require("./routes/listing.js");
 const reviewRouter = require("./routes/review.js");
 const userRouter = require("./routes/user.js");
 
-const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust";
+const MONGO_URL =
+  "mongodb+srv://Abhishek:Patel%40123@cluster0.0brh7w1.mongodb.net/?appName=Cluster0";
 
 main()
   .then(() => {
@@ -45,8 +46,8 @@ const sessionOptions = {
   resave: false,
   saveUninitialized: true,
   cookie: {
-    express: Date.now() + 7 * 24 * 60 * 1000,
-    maxAge: 7 * 24 * 60 * 1000,
+    express: Date.now() + 7 * 24 * 60 * 60 * 1000,
+    maxAge: 7 * 24 * 60 * 60 * 1000,
     httpOnly: true,
   },
 };
